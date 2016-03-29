@@ -1,5 +1,5 @@
 #!/bin/bash
-# Blooming Onion (c) David Huerta. Distributed under the GPL v3 license. See LICENSE for deets.
+# Blooming Onion (c) David Huerta. Distributed under the GPL v3 license. See LICENSE.txt for deets.
 
 echo 'Removing any installed mail servers because they will hurt you.'
 echo 'Type "y" and hit enter to remove when asked.'
