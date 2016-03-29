@@ -2,7 +2,7 @@
 Shell script for automating the deployment of a Tor hidden service for a Ghost.org blog.
 
 ## Prerequisites
-This shell script requiresa DigitalOcean Ghost One-Click-App. See https://www.digitalocean.com/features/one-click-apps/ghost/ for deets.
+This shell script requires a DigitalOcean Ghost One-Click-App. See https://www.digitalocean.com/features/one-click-apps/ghost/ for deets.
 
 ## Setup
 The Ghost 1-Click-Application image isn't refreshed super-often and doesn't include git, so to do that, you'll want to run:
