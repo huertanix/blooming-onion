@@ -23,12 +23,18 @@ cp config/tor/torrc /etc/tor/torrc
 service tor reload
 ONION_ADDRESS = `cat /var/lib/tor/hidden_service/hostname`
 
-echo 'Setting up the web server NGINX to use Tor onion service'
+echo 'Setting up the web server NGINX to use Tor onion service...'
 mv /etc/nginx/sites-available/ghost /etc/nginx/sites-available/ghost.orig
 cp config/nginx/ghost /etc/nginx/sites-available/ghost
 sed -i bak -e s/ONION_PLACEHOLDER/$ONION_ADDRESS/g /etc/nginx/sites-available/ghost
 
-echo 'Updating Ghost config to use .onion address.'
+echo 'Updating Ghost config to use .onion address...'
 mv /var/www/ghost/config.js /var/www/ghost/config.js.orig
 cp config/ghost/config.js /var/www/ghost/config.js
 sed -i bak -e s/ONION_PLACEHOLDER/$ONION_ADDRESS/g /var/www/ghost/config.js
+
+echo 'Restarting NGINX...'
+service nginx reload
+
+echo 'Congrats! You now have your very own Tor onion service.'
+echo "Enter this address into the Tor browser: $ONION_ADDRESS"
