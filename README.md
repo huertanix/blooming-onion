@@ -1,4 +1,4 @@
-***NOTE: There's a weird bug that makes this not work at all. Don't use it until it is fixed, thanks.***
+***NOTE:*** This is hella experimental and alpha af. Have a security expert examine this code before deploying.
 
 # blooming-onion
 Shell script for automating the deployment of a Tor hidden service for a Ghost.org blog.
