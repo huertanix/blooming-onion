@@ -10,15 +10,11 @@ cp blooming-onion/config/ghost/config.js.orig /var/www/ghost/config.js
 echo  'Restoring torrc...'
 cp blooming-onion/config/tor/torrc.orig /etc/tor/torrc
 
+# DANGERZONE
+echo 'REMOVING hidden service ***CANNOT UNDO*** (requires confirmation)...'
+rm -i /var/lib/tor/hidden_service/*
+# END DANGERZONE
+
 echo 'Restarting services...'
 service tor reload
 service nginx reload
-
-echo 'Confirming hidden service is gone...'
-ONION_ADDRESS=`sudo cat /var/lib/tor/hidden_service/hostname`
-if [ -n "$ONION_ADDRESS" ]
-then
-    echo 'ERROR:' $ONION_ADDRESS 'still exists! :('
-else
-    echo 'SUCCESS!'
-fi
