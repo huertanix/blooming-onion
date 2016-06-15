@@ -6,21 +6,25 @@ echo 'Type "y" and hit enter to remove when asked.'
 apt-get remove --purge exim postfix sendmail
 
 echo 'Applying software updates...'
-echo 'Type "y" and hit enter to install when asked.'
+#echo 'Type "y" and hit enter to install when asked.'
 apt-get update
-apt-get upgrade
+apt-get -y upgrade
 
 echo 'Installing Tor from official Tor software repository...'
-echo 'Type "y" and hit enter to install Tor when asked.'
+#echo 'Type "y" and hit enter to install Tor when asked.'
 add-apt-repository http://deb.torproject.org/torproject.org
 gpg --keyserver keys.gnupg.net --recv 886DDD89
 gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | apt-key add -
 apt-get update
-apt-get install tor deb.torproject.org-keyring
+apt-get -y install tor deb.torproject.org-keyring
 
 echo 'Setting up Tor onion service...'
 cp blooming-onion/config/tor/torrc /etc/tor/.
 service tor reload
+
+echo 'Configuring automatic security upgrades...'
+apt-get -y install unattended-upgrade
+cp blooming-onion/config/apt/20auto-upgrades /etc/apt/apt.conf.d/.
 
 ONION_ADDRESS=`sudo cat /var/lib/tor/hidden_service/hostname`
 
