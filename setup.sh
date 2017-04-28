@@ -23,7 +23,7 @@ cp blooming-onion/config/tor/torrc /etc/tor/.
 service tor reload
 
 echo 'Configuring automatic security upgrades...'
-apt-get -y install unattended-upgrade
+apt-get -y install unattended-upgrades
 cp blooming-onion/config/apt/20auto-upgrades /etc/apt/apt.conf.d/.
 
 ONION_ADDRESS=`sudo cat /var/lib/tor/hidden_service/hostname`
