@@ -1,0 +1,30 @@
+{
+  "url": "http://ONION_PLACEHOLDER",
+  "server": {
+    "port": 2368,
+    "host": "127.0.0.1"
+  },
+  "database": {
+    "client": "mysql",
+    "connection": {
+      "host": "localhost",
+      "user": "ghost",
+      "password": "4f4f2a8d6453316891c59c635f245223c4fa83a31521378a",
+      "database": "ghost_production"
+    },
+    "debug": false
+  },
+  "mail": {
+    "transport": "Direct"
+  },
+  "logging": {
+    "transports": [
+      "file",
+      "stdout"
+    ]
+  },
+  "process": "systemd",
+  "paths": {
+    "contentPath": "/var/www/ghost/content"
+  }
+}
