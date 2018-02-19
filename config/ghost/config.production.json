@@ -9,7 +9,7 @@
     "connection": {
       "host": "localhost",
       "user": "ghost",
-      "password": "4f4f2a8d6453316891c59c635f245223c4fa83a31521378a",
+      "password": "DB_PASSWORD_PLACEHOLDER",
       "database": "ghost_production"
     },
     "debug": false

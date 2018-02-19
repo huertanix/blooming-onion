@@ -22,6 +22,9 @@ apt-get -y --force-confold install tor deb.torproject.org-keyring
 #apt-get -y install unattended-upgrades
 #cp blooming-onion/config/apt/20auto-upgrades /etc/apt/apt.conf.d/.
 
+# Copy original config in case it needs to be restored later
+cp blooming-onion/config/tor/torrc ./tor/torrc.orig
+
 echo 'Setting up Tor onion service and waiting 5 seconds for .onion address creation...'
 cp blooming-onion/config/tor/torrc /etc/tor/.
 service tor reload
@@ -30,13 +33,16 @@ sleep 5s
 ONION_ADDRESS=`cat /var/lib/tor/hidden_service/hostname`
 
 if [ -n "$ONION_ADDRESS" ]; then
+    # Copy for future restore
+    cp /etc/nginx/sites-available/ghost blooming-onion/config/nginx/ghost.orig
     echo 'Setting up the web server NGINX to use Tor onion service...'
     cp blooming-onion/config/nginx/ghost /etc/nginx/sites-available/.
     sed -i 's/ONION_PLACEHOLDER/'$ONION_ADDRESS'/g' /etc/nginx/sites-available/ghost
-
+    # Copy for future restore
+    cp /var/www/ghost/config.production.json blooming-onion/config/ghost/config.production.json.orig
     echo 'Updating Ghost config to use .onion address...'
-    cp blooming-onion/config/ghost/config.production.json /var/www/ghost/.
-    sed -i 's/ONION_PLACEHOLDER/'$ONION_ADDRESS'/g' /var/www/ghost/config.production.json
+    #cp blooming-onion/config/ghost/config.production.json /var/www/ghost/.
+    sed -i 's/\"url\": \"http:\/\/.*\"/\"url\": \"http:\/\/'$ONION_ADDRESS'\"/g' /var/www/ghost/config.production.json
 
     echo 'Restarting NGINX...'
     service nginx reload
